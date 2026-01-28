@@ -44,7 +44,7 @@ class ARTagFollower:
         self.cmd_vel_pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
 
         self.backupPose = rospy.Subscriber(
-            "backupPose", PoseStamped, self.carolusCallback, queue_size=1
+            "/pose", PoseStamped, self.carolusCallback, queue_size=1
         )
         self.ar_pose_sub = rospy.Subscriber(
             "ar_pose_marker", AlvarMarkers, self.callback_ar_pose, queue_size=1
