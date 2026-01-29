@@ -151,7 +151,11 @@ class ARTagFollower:
 
             self.last_marker_ts = marker.header.stamp
             self.last_marker_position = marker.pose.pose.position
+            print("marker pose:")
+            print(self.last_marker_position)
             self.last_marker_position = self.backupPose.pose.position
+            print("carolus pose:")
+            print(self.last_marker_position)
             self.odom_position = Vector3()
             self.odom_yaw = 0.0
 
@@ -182,7 +186,10 @@ class ARTagFollower:
 
         self.last_odom_ts = msg.header.stamp
     
-    def carolusCallback(self,PoseStamped.msg msg):
+    def carolusCallback(self, msg):
+        self.backupPose.pose.position.x = msg.pose.position.z
+        self.backupPose.pose.position.y = msg.pose.position.x
+        self.backupPose.pose.position.z = msg.pose.position.y
 
         self.backupPose.pose.orientation.x = msg.pose.orientation.x
 
