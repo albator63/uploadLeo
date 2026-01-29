@@ -188,6 +188,14 @@ class ARTagFollower:
     
     def carolusCallback(self, msg):
         print(type(msg))
+
+        print("----------------------------------------")
+
+        print("----------------------------------------")
+
+        print("----------------------------------------")
+
+        print("----------------------------------------")
         self.backupPose.pose.position.x = msg.pose.position.z
         self.backupPose.pose.position.y = msg.pose.position.x
         self.backupPose.pose.position.z = msg.pose.position.y
