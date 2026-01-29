@@ -187,6 +187,7 @@ class ARTagFollower:
         self.last_odom_ts = msg.header.stamp
     
     def carolusCallback(self, msg):
+        print(type(msg))
         self.backupPose.pose.position.x = msg.pose.position.z
         self.backupPose.pose.position.y = msg.pose.position.x
         self.backupPose.pose.position.z = msg.pose.position.y
