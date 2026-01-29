@@ -151,11 +151,11 @@ class ARTagFollower:
 
             self.last_marker_ts = marker.header.stamp
             self.last_marker_position = marker.pose.pose.position
-            print("marker pose:")
-            print(self.last_marker_position)
+            rospy.loginfo("marker pose:")
+            rospy.loginfo(self.last_marker_position)
             self.last_marker_position = self.backupPose.pose.position
-            print("carolus pose:")
-            print(self.last_marker_position)
+            rospy.loginfo("carolus pose:")
+            rospy.loginfo(self.last_marker_position)
             self.odom_position = Vector3()
             self.odom_yaw = 0.0
 
