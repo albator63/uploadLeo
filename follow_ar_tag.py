@@ -49,7 +49,7 @@ class ARTagFollower:
         self.ar_pose_sub = rospy.Subscriber(
             "ar_pose_marker", AlvarMarkers, self.callback_ar_pose, queue_size=1
         )
-        rospy.loginfo("test_info_init_location")
+        print("test_info_init_location")
         self.wheel_odom_sub = rospy.Subscriber(
             "wheel_odom_with_covariance",
             Odometry,
@@ -143,21 +143,17 @@ class ARTagFollower:
             if marker.id != self.follow_id:
                 continue
             if marker.header.stamp < self.last_marker_ts:
-                rospy.loginfo("test_info_warning_location")
+                print("test_info_warning_location")
                 rospy.logwarn_throttle(
                     3.0, "Got marker position with an older timestamp - coucou toi"
                 )
                 continue
 
-            marker.pose = self.backupPose
+            #marker.pose = self.backupPose
 
             self.last_marker_ts = marker.header.stamp
             self.last_marker_position = marker.pose.pose.position
-            rospy.loginfo("marker pose:")
-            rospy.loginfo(self.last_marker_position)
-            self.last_marker_position = self.backupPose.pose.position
-            rospy.loginfo("carolus pose:")
-            rospy.loginfo(self.last_marker_position)
+            #self.last_marker_position = self.backupPose.pose.position
             self.odom_position = Vector3()
             self.odom_yaw = 0.0
 
@@ -192,15 +188,19 @@ class ARTagFollower:
     def carolusCallback(self, msg):
         print(type(msg))
         self.backupPose= msg
-        #self.backupPose.pose.position.x = msg.pose.position.z
-        #self.backupPose.pose.position.y = msg.pose.position.x
-        #self.backupPose.pose.position.z = msg.pose.position.y
 
-        #self.backupPose.pose.orientation.x = msg.pose.orientation.x
+        self.last_marker_ts = msg.header.stamp
+        self.last_marker_position = msg.pose.position
+        print("marker pose:")
+        print(self.last_marker_position)
+        self.odom_position = Vector3()
+        self.odom_yaw = 0.0
+
+        self.update_marker_angle_distance()
 
 
 if __name__ == "__main__":
     rospy.init_node("follow_ar_tag")
     ar_tag_follower = ARTagFollower()
-    rospy.loginfo("test_info_main_location")
+    print("test_info_main_location")
     ar_tag_follower.run()
