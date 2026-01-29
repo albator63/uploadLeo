@@ -145,7 +145,7 @@ class ARTagFollower:
             if marker.header.stamp < self.last_marker_ts:
                 rospy.loginfo("test_info_warning_location")
                 rospy.logwarn_throttle(
-                    3.0, "Got marker position with an older timestamp"
+                    3.0, "Got marker position with an older timestamp - coucou toi"
                 )
                 continue
 
