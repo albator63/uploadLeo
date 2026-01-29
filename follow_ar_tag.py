@@ -189,8 +189,19 @@ class ARTagFollower:
         print(type(msg))
         self.backupPose= msg
 
+        Xcamera=msg.pose.position.z
+        Ycamera=msg.pose.position.x
+        Zcamera=msg.pose.position.y
+
+        Xcamera=-Xcamera
+        Ycamera=-Ycamera
+        Zcamera=-Zcamera
+        
         self.last_marker_ts = msg.header.stamp
         self.last_marker_position = msg.pose.position
+        self.last_marker_position.x=Xcamera
+        self.last_marker_position.y=Ycamera
+        self.last_marker_position.z=Zcamera
         print("marker pose:")
         print(self.last_marker_position)
         self.odom_position = Vector3()
